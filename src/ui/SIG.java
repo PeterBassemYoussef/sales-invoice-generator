@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class SIG extends JFrame implements ActionListener {
     private JMenuBar menuBar;
@@ -188,10 +192,37 @@ public class SIG extends JFrame implements ActionListener {
 
     }
     private void loadFile(){
+        JFileChooser fc = new JFileChooser();
+        if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            String path = fc.getSelectedFile().getPath();
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(path);
+                int size = fis.available();
+                byte[] b = new byte[size];
+                fis.read(b);
+                System.out.println(new String(b));
+                fis.close();
 
+                JOptionPane.showMessageDialog(null,
+                        "File Opened.",
+                        "Saved Dialog",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                try {
+                    fis.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private void saveFile() {
-
     }
 }
