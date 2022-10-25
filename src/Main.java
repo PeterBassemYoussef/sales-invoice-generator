@@ -1,5 +1,8 @@
+import ui.SIG;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        SIG sig = new SIG("Sales Invoice Generator Project");
+        sig.setVisible(true);
     }
 }
